@@ -70,6 +70,10 @@ CONFIGURE_ARGS += \
 TARGET_CFLAGS += -DHAVE_MAP_SYNC
 TARGET_LDFLAGS += $(if $(CONFIG_USE_GLIBC),-lrt)
 
+ifneq ($(CONFIG_USE_MUSL),)
+  TARGET_CFLAGS += -D_LARGEFILE64_SOURCE
+endif
+
 define Package/xfs-admin/install
 	$(INSTALL_DIR) $(1)/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/xfs_db $(1)/sbin
